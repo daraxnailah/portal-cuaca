@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous" />
+
+  <title>WeatherApp - Detailed Forecast & Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <!-- CSS -->
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      width: 100%;
+      min-height: 700px;
+      background-color: #2563eb;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center bottom;
+      position: relative;
+      background-attachment: fixed;
+    }
+
+    .layer {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .weather-icon {
+      width: 100px;
+      height: 100px;
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      border-radius: 0.5rem;
+    }
+
+    .forecast-card {
+      margin: 0.5rem;
+    }
+
+    .hourly-forecast-container {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hourly-forecast-item {
+      display: inline-block;
+      flex: 0 0 auto;
+      width: 120px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #3b82f6;
+      color: white;
+      border-radius: 0.375rem;
+      transition: background-color 0.2s;
+    }
+
+    .modal-content button:hover {
+      background-color: #2563eb;
+    }
+
+    .section-padding {
+      padding: 60px 0;
+    }
+
+    .accordion-button {
+     color: #2563eb !important; 
+     padding: 15px;
+     width: 100%;
+     text-align: left;
+     font-weight: bold;
+     font-size: 16px;
+     border: none;
+     cursor: pointer;
+     outline: none !important;
+     box-shadow: none !important; 
+     transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+
+    @media (max-width: 1200px) {
+      .hourly-forecast-container {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-brand,
+      .navbar-toggler,
+      .nav-item,
+      .cari {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
+  </style>
+</head>
+
+<!-- Navbar -->
+<body data-bs-spy="scroll" data-bs-target="#navbarSupportedContent" data-bs-offset="80" tabindex="0">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><b>WeatherApp</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#realtime">Real Time</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#forecast">Daily Forecast</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#faq">F.A.Q</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        <form class="cari d-flex" id="search-form">
+          <input class="form-control me-2" type="search" placeholder="Cari lokasi" aria-label="Search"
+            id="search-input" />
+          <button class="btn btn-light my-2 my-sm-0" type="submit">Cari</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero bg-primary text-white py-5" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Text Content -->
+        <div class="col-md-6 text-center text-md-left mb-4 mb-md-0" data-aos="fade-up">
+          <h1 class="display-4 font-weight-bold text-white text-center">
+            <b>Welcome to WeatherApp</b>
+          </h1>
+          <p class="lead text-center">
+            Dapatkan informasi cuaca real-time, prakiraan harian, dan data
+            iklim secara akurat langsung dari lokasi Anda.
+          </p>
+          <a href="#search-form" class="btn btn-light btn-lg mt-3">Cek Cuaca Sekarang</a>
+        </div>
+        <!-- Image / Illustration -->
+        <div class="col-md-6 text-center" data-aos="fade-down">
+          <img src="https://cdn-icons-png.flaticon.com/512/1163/1163661.png" alt="Weather Illustration"
+            class="img-fluid" style="max-height: 300px" />
+        </div>
+      </div>
+    </div>
+  </section>]
+
+  <!-- About-->
+  <section class="section-padding my-5" id="about">
+    <div class="container bg-white rounded py-5" data-aos="fade-down">
+      <h3 class="text-center h4 font-weight-bold mb-4"><b>About Us</b></h3>
+      <p class="mb-4 text-justify">
+        <strong>Weather App</strong> adalah aplikasi yang dirancang untuk
+        memberikan informasi cuaca secara real-time dan akurat berdasarkan
+        lokasi pengguna. Dengan antarmuka yang sederhana dan mudah digunakan,
+        pengguna dapat mengetahui kondisi cuaca saat ini, prakiraan cuaca
+        beberapa hari ke depan, suhu, kelembaban, serta kecepatan angin.
+      </p>
+
+      <div class="row text-center">
+        <!-- Fitur Utama -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title font-weight-bold">
+                <i class="mr-2 text-warning"></i>Fitur Utama
+              </h5>
+              <ul class="list-unstyled text-center mt-3">
+                <li>
+                  <i>Cuaca
+                  saat ini berdasarkan lokasi</i>
+                </li>
+                <li>
+                  <i>Prakiraan hingga 5 hari ke depan</i>
+                </li>
+                <li>
+                  <i>Informasi suhu, kelembaban, tekanan</i>
+                </li>
+                <li>
+                  <i>Pencarian berdasarkan kota/koordinat</i>
+                </li>
+                <li>
+                  <i>Antarmuka responsif & mudah dipakai</i>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teknologi -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title font-weight-bold">
+                <i class="mr-2 text-primary"></i>Teknologi
+              </h5>
+              <ul class="list-unstyled text-center mt-3">
+                <li>
+                  <i>HTML, CSS,
+                  JavaScript</i>
+                </li>
+                <li>
+                  <i>OpenWeatherMap API</i>
+                </li>
+                <li>
+                  <i>Geolocation API</i>
+                </li>
+              </ul>
+              <p class="mt-3 text-left">
+                Cocok untuk pengguna yang membutuhkan informasi cuaca secara
+                cepat, baik untuk kebutuhan pribadi maupun aktivitas luar
+                ruangan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BMKG real-time -->
+  <section class="section-padding bmkg" id="realtime">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="h4 font-weight-semibold text-dark mb-3 text-center">
+            <b>Real Time Pemantuan Cuaca BMKG</b>
+          </h3>
+          <iframe src="https://cuaca.bmkg.go.id/map" frameborder="0" style="width: 100%; height: 700px"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forecasting -->
+  <section class="section-padding mb-5" data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="h4 font-weight-semibold text-dark mb-3 text-center">
+            <b>Cuaca Saat Ini</b>
+          </h3>
+          <div id="current-weather" class="my-4">
+            <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
+              <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding mb-5">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="h4 font-weight-semibold text-dark mb-3 text-center">
+            <b>Prakiraan Cuaca Per Jam (24 Jam ke Depan)</b>
+          </h3>
+          <div id="hourly-forecast"
+            class="d-flex flex-wrap justify-content-lg-center py-3 px-2 bg-white rounded shadow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily Forecast -->
+  <section class="section-padding forcasting-day" id="forecast">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="h4 font-weight-semibold text-dark mb-3 text-center">
+            <b>Prakiraan Cuaca 5 Hari</b>
+          </h3>
+          <div id="daily-forecast" class="d-flex flex-wrap justify-content-center mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Region-Map -->
+  <section class="section-padding region-map">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="h4 font-weight-semibold text-dark mb-3 text-center">
+            <b>Peta Wilayah</b>
+          </h3>
+          <div id="map" class="w-full rounded-lg shadow-lg mb-6"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- F.A.Q -->
+  <section class="section-padding mb-5" id="faq">
+    <div class="container">
+      <h3 class="text-center mb-4 font-weight-bold">
+       <b>Frequently Asked Question</b>
+      </h3>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              Apa itu Weather App?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Weather App adalah aplikasi yang menyediakan informasi cuaca
+              secara real-time berdasarkan lokasi pengguna atau kota yang
+              dicari.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Bagaimana cara aplikasi ini mengetahui lokasi saya?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Aplikasi menggunakan Geolocation API dari browser untuk
+              mendeteksi lokasi secara otomatis, dengan izin dari pengguna.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Apakah aplikasi ini membutuhkan koneksi internet?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Ya. Karena data cuaca diambil secara online, aplikasi
+              membutuhkan koneksi internet untuk menampilkan informasi
+              terbaru.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section-padding mb-5 position-relative text-white py-5" id="contact">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h3 class="h4 font-weight-bold text-dark"><b>Contact Us</b></h3>
+        <p class="lead text-dark">Silakan kirim pesan, kami akan segera membalasnya!</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form action="submit_form.php" method="POST" class="bg-light text-dark p-4 rounded shadow">
+            <div class="form-group">
+              <label for="name">Nama Lengkap</label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama Anda" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Alamat Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subjek</label>
+              <input type="text" class="form-control" id="subject" name="subject" placeholder="Subjek pesan" />
+            </div>
+            <div class="form-group">
+              <label for="message">Pesan</label>
+              <textarea class="form-control" id="message" name="message" rows="3"
+                placeholder="Tulis pesan Anda di sini..." required></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary px-4 mt-3">
+                Kirim Pesan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="bg-primary text-white text-center py-3 mt-auto shadow-inner">
+    <p class="mb-0 small">© 2025 Reserved by <a href="https://www.instagram.com/daraxnailah" target="_blank" style="color: white; ">Dara Nailah</a> |
+    Powered by <a href="https://gamelab.id" target="_blank" style="color: white;">Gamelab.id</a></p>
+  </footer> 
+
+  <!-- Modal Error -->
+  <div id="error-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h4 class="text-xl font-bold text-red-600 mb-4">Terjadi Kesalahan!</h4>
+      <p id="error-message" class="text-gray-700"></p>
+      <button id="close-error-modal">Tutup</button>
+    </div>
+  </div>
+
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"
+    integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  
+  <script>
+    AOS.init();
+  </script>
+  
+  <script>
+    const openWeatherApiKey = "b7135f59e130cf799c4eb331a4d50166"; // Get from https://openweathermap.org/api
+    const openAqApiKey =
+      "dc2eb58cd079f0343bd100930f10115d7dfeb12343cd6d6f2fffb01c243faf82"; // Get from https://openaq.org/ (optional, for AQI)
+
+    // DOM Elements
+    const currentWeatherEl = document.getElementById("current-weather");
+    const hourlyForecastEl = document.getElementById("hourly-forecast");
+    const dailyForecastEl = document.getElementById("daily-forecast");
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("search-input");
+    const errorModal = document.getElementById("error-modal");
+    const errorMessageEl = document.getElementById("error-message");
+    const closeErrorModalBtn = document.getElementById("close-error-modal");
+
+    // Initialize Leaflet Map
+    let map;
+    let currentMarker;
+    let tempLayer, precipLayer, cloudsLayer; // Variables for weather tile layers
+
+    function initializeLeafletMap(
+      initialLat = -7.2575,
+      initialLon = 112.7508,
+      initialZoom = 9
+    ) {
+
+      if (map) {
+        map.setView([initialLat, initialLon], initialZoom);
+        return;
+      }
+      map = L.map("map").setView([initialLat, initialLon], initialZoom);
+
+      // Base Layer (OpenStreetMap)
+      const osmLayer = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }
+      ).addTo(map);
+
+      // --- OpenWeatherMap Tile Layers ---
+      tempLayer = L.tileLayer(
+        `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${openWeatherApiKey}`,
+        {
+          attribution:
+            'Map data &copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
+          opacity: 1,
+        }
+      );
+      precipLayer = L.tileLayer(
+        `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${openWeatherApiKey}`,
+        {
+          attribution:
+            'Map data &copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
+          opacity: 1,
+        }
+      );
+      cloudsLayer = L.tileLayer(
+        `https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${openWeatherApiKey}`,
+        {
+          attribution:
+            'Map data &copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
+          opacity: 1,
+        }
+      );
+
+      const baseMaps = {
+        OpenStreetMap: osmLayer,
+      };
+
+      const overlayMaps = {
+        Temperature: tempLayer,
+        Precipitation: precipLayer,
+        Clouds: cloudsLayer,
+      };
+
+      L.control.layers(baseMaps, overlayMaps).addTo(map);
+    }
+
+    function showCustomError(message) {
+      errorMessageEl.textContent = message;
+      errorModal.classList.add("show");
+    }
+
+    // Close error modal event listener
+    closeErrorModalBtn.addEventListener("click", () => {
+      errorModal.classList.remove("show");
+    });
+
+    async function fetchAllWeatherData(query, type = "city") {
+      // Display loading spinner in current weather section
+      currentWeatherEl.innerHTML = `
+            <div class="flex justify-center items-center h-48">
+                <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        `;
+      // Clear previous forecast data
+      hourlyForecastEl.innerHTML = "";
+      dailyForecastEl.innerHTML = "";
+
+      let weatherUrl;
+      let forecastUrl;
+      let lat, lon; // These will be determined or confirmed by the API response
+
+      // Construct API URLs based on query type (city name or coordinates)
+      if (type === "city") {
+        weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
+          query
+        )}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
+        forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(
+          query
+        )}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
+      } else if (type === "coords") {
+        [lat, lon] = query.split(","); // Destructure coordinates from query string
+        weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
+        forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
+      } else {
+        showCustomError("Tipe query tidak valid.");
+        currentWeatherEl.innerHTML = `<p class="text-red-500 text-lg">Tipe query tidak valid.</p>`; // Also show error in main section
+        return;
+      }
+
+      try {
+        // Fetch current weather and forecast data in parallel
+        const [weatherRes, forecastRes] = await Promise.all([
+          fetch(weatherUrl),
+          fetch(forecastUrl),
+        ]);
+
+        // Check if weather response is OK
+        if (!weatherRes.ok) {
+          const errorData = await weatherRes.json();
+          throw new Error(
+            `Gagal mengambil cuaca saat ini: ${errorData.message || weatherRes.statusText
+            } (Status: ${weatherRes.status})`
+          );
+        }
+        // Check if forecast response is OK
+        if (!forecastRes.ok) {
+          const errorData = await forecastRes.json();
+          throw new Error(
+            `Gagal mengambil prakiraan cuaca: ${errorData.message || forecastRes.statusText
+            } (Status: ${forecastRes.status})`
+          );
+        }
+
+        const currentWeatherData = await weatherRes.json();
+        const forecastData = await forecastRes.json();
+
+        // Update latitude and longitude from the current weather data (most accurate source)
+        lat = currentWeatherData.coord.lat;
+        lon = currentWeatherData.coord.lon;
+
+        let airQualityData = null;
+        // Fetch air quality data if an API key is provided
+        if (openAqApiKey) {
+          try {
+            const airQualityRes = await fetch(
+              `https://api.openaq.org/v2/latest?coordinates=${lat},${lon}&limit=1&order_by=distance&sort=asc`,
+              {
+                headers: { "X-API-Key": openAqApiKey }, // OpenAQ uses X-API-Key header
+              }
+            );
+            if (airQualityRes.ok) {
+              airQualityData = await airQualityRes.json();
+            } else {
+              // Log warning if AQI data fetch fails but don't break the entire flow
+              console.warn(
+                "Gagal mengambil data kualitas udara:",
+                airQualityRes.status,
+                await airQualityRes.text()
+              );
+            }
+          } catch (aqErr) {
+            console.error("Error fetching Air Quality:", aqErr);
+          }
+        }
+
+        // Render all fetched data
+        renderCurrentWeather(currentWeatherData, airQualityData);
+        renderHourlyForecast(forecastData);
+        renderDailyForecast(forecastData);
+        updateMap(lat, lon, currentWeatherData.name); // Update map with new location
+      } catch (err) {
+        // Handle errors from API calls or data processing
+        currentWeatherEl.innerHTML = `<p class="text-red-500 text-lg">Gagal mengambil data cuaca. ${err.message}</p>`;
+        console.error("Error in fetchAllWeatherData:", err);
+        showCustomError(
+          `Gagal mengambil data cuaca: ${err.message}. Pastikan nama kota benar, koneksi internet stabil, dan API key valid.`
+        );
+        // If map wasn't initialized due to an early error, try initializing with default view
+        if (!map) initializeLeafletMap();
+      }
+    }
+
+    function renderCurrentWeather(data, airQualityData) {
+      // Format sunrise and sunset times to local Indonesian time
+      const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString(
+        "id-ID",
+        { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta" }
+      );
+      const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString(
+        "id-ID",
+        { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta" }
+      );
+
+      let aqiHtml = ""; // Initialize AQI HTML string
+      // Process and display AQI data if available
+      if (
+        airQualityData &&
+        airQualityData.results &&
+        airQualityData.results.length > 0
+      ) {
+        // Find common AQI parameters (PM2.5, PM10, O3)
+        const pm25 = airQualityData.results[0].measurements.find(
+          (m) => m.parameter === "pm25"
+        );
+        const pm10 = airQualityData.results[0].measurements.find(
+          (m) => m.parameter === "pm10"
+        );
+        const o3 = airQualityData.results[0].measurements.find(
+          (m) => m.parameter === "o3"
+        );
+        let aqiDisplay = []; // Array to hold formatted AQI strings
+
+        if (pm25)
+          aqiDisplay.push(
+            `<strong>PM2.5:</strong> ${pm25.value.toFixed(1)} ${pm25.unit}`
+          );
+        if (pm10)
+          aqiDisplay.push(
+            `<strong>PM10:</strong> ${pm10.value.toFixed(1)} ${pm10.unit}`
+          );
+        if (o3)
+          aqiDisplay.push(
+            `<strong>O3:</strong> ${o3.value.toFixed(1)} ${o3.unit}`
+          );
+
+        if (aqiDisplay.length > 0) {
+          aqiHtml = `
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-lg font-semibold">Kualitas Udara:</p>
+                        <p class="text-gray-700">${aqiDisplay.join("<br>")}</p>
+                        <p class="text-sm text-gray-500">Stasiun: ${airQualityData.results[0].location ||
+            "Tidak diketahui"
+            }</p>
+                    </div>`;
+        } else {
+          aqiHtml = `
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-lg font-semibold">Kualitas Udara:</p>
+                        <p class="text-gray-700">Data AQI utama (PM2.5, PM10, O3) tidak ditemukan.</p>
+                        <p class="text-sm text-gray-500">Stasiun: ${airQualityData.results[0].location ||
+            "Tidak diketahui"
+            }</p>
+                    </div>`;
+        }
+      }
+
+      // Populate current weather HTML
+      currentWeatherEl.innerHTML = `
+        <div class="bg-white rounded shadow p-4 p-md-5 mx-auto" style="max-width: 720px;">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-4">
+            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon
+        }@4x.png" 
+                class="flex-shrink-0 img-fluid" 
+                alt="Icon Cuaca ${data.weather[0].description}" 
+                onerror="this.onerror=null; this.src='https://placehold.co/100x100/FFFFFF/C0C0C0?text=Icon';">
+            <div class="mt-4 mt-md-0 text-center text-md-left ml-md-4">
+                <h1 class="display-4 font-weight-bold text-dark">${Math.round(
+          data.main.temp
+        )}°C</h1>
+                <p class="h5 text-muted text-capitalize">${data.weather[0].description
+        }</p>
+                <h2 class="h4 font-weight-semibold text-dark mt-2">${data.name
+        }, ${data.sys.country}</h2>
+            </div>
+            </div>
+            <div class="row text-dark">
+            <div class="col-md-6 mb-3">
+                <p><strong>Terasa Seperti:</strong> ${Math.round(
+          data.main.feels_like
+        )}°C</p>
+                <p><strong>Kelembapan:</strong> ${data.main.humidity}%</p>
+                <p><strong>Tekanan Udara:</strong> ${data.main.pressure} hPa</p>
+                <p><strong>Visibilitas:</strong> ${(
+          data.visibility / 1000
+        ).toFixed(1)} km</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <p><strong>Kecepatan Angin:</strong> ${data.wind.speed
+        } m/s (${getWindDirection(data.wind.deg)})</p>
+                <p><strong>Awan:</strong> ${data.clouds.all}%</p>
+                <p><strong>Matahari Terbit:</strong> ${sunrise}</p>
+                <p><strong>Matahari Terbenam:</strong> ${sunset}</p>
+            </div>
+            </div>
+            ${aqiHtml}
+        </div>
+        `;
+    }
+
+    function renderHourlyForecast(data) {
+      hourlyForecastEl.innerHTML = ""; // Clear previous forecast
+      for (let i = 0; i < Math.min(8, data.list.length); i++) {
+        // Show up to 8 entries
+        const item = data.list[i];
+        const time = new Date(item.dt * 1000).toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "Asia/Jakarta",
+        });
+        hourlyForecastEl.innerHTML += `
+                <div class="hourly-forecast-item text-center p-3 m-2 bg-blue-50 rounded-lg shadow-sm flex-shrink-0">
+                    <small class="text-gray-600 block">${time}</small>
+                    <img src="https://openweathermap.org/img/wn/${item.weather[0].icon
+          }.png" class="w-12 h-12 mx-auto" alt="${item.weather[0].description
+          }" onerror="this.onerror=null; this.src='https://placehold.co/48x48/FFFFFF/C0C0C0?text=Icon';">
+                    <strong class="block text-lg text-gray-800">${Math.round(
+            item.main.temp
+          )}°C</strong>
+                    <small class="text-gray-500 capitalize">${item.weather[0].description
+          }</small>
+                </div>`;
+      }
+    }
+
+    function renderDailyForecast(data) {
+      dailyForecastEl.innerHTML = ""; // Clear previous forecast
+      const uniqueDates = new Set(); // To ensure each date is displayed only once
+      let count = 0; // Counter for displayed days
+
+      // Primary logic: find entries at 12:00:00 for each day
+      data.list.forEach((item) => {
+        if (count >= 5) return; // Stop if 5 days are already displayed
+        const dateObj = new Date(item.dt * 1000);
+        const dateString = dateObj.toLocaleDateString("id-ID", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        });
+
+        // Check if the date is unique and the entry is for midday
+        if (
+          !uniqueDates.has(dateString) &&
+          item.dt_txt.includes("12:00:00")
+        ) {
+          uniqueDates.add(dateString);
+          dailyForecastEl.innerHTML += `
+                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2 forecast-card">
+                        <div class="bg-white rounded-lg shadow-md h-full flex flex-col justify-between items-center text-center p-4">
+                            <h6 class="text-lg font-semibold text-gray-800">${dateString}</h6>
+                            <img src="https://openweathermap.org/img/wn/${item.weather[0].icon
+            }@2x.png" class="weather-icon w-20 h-20" alt="${item.weather[0].description
+            }" onerror="this.onerror=null; this.src='https://placehold.co/80x80/FFFFFF/C0C0C0?text=Icon';">
+                            <p class="text-2xl font-bold text-gray-900 mb-1">${Math.round(
+              item.main.temp_max
+            )}°/${Math.round(item.main.temp_min)}°C</p>
+                            <p class="text-gray-600 capitalize">${item.weather[0].description
+            }</p>
+                        </div>
+                    </div>`;
+          count++;
+        }
+      });
+
+      // Fallback logic: if less than 5 days were found using midday entries
+      if (count < 5) {
+        const dailyEntries = {}; // Object to group forecast items by date
+        // Group all forecast items by their date string
+        data.list.forEach((item) => {
+          const dateObj = new Date(item.dt * 1000);
+          const dateString = dateObj.toLocaleDateString("id-ID", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+          });
+          if (!dailyEntries[dateString]) {
+            // Initialize arrays for this date if it's the first entry
+            dailyEntries[dateString] = {
+              temps_max: [],
+              temps_min: [],
+              icons: [],
+              descriptions: [],
+            };
+          }
+          // Add data for this entry
+          dailyEntries[dateString].temps_max.push(item.main.temp_max);
+          dailyEntries[dateString].temps_min.push(item.main.temp_min);
+          // Store first icon and description of the day for simplicity in fallback
+          if (dailyEntries[dateString].icons.length === 0) {
+            dailyEntries[dateString].icons.push(item.weather[0].icon);
+            dailyEntries[dateString].descriptions.push(
+              item.weather[0].description
+            );
+          }
+        });
+
+        // Iterate through grouped daily entries to fill remaining days
+        for (const dateString in dailyEntries) {
+          if (count >= 5) break; // Stop if 5 days are now displayed
+          if (uniqueDates.has(dateString)) continue; // Skip if already added by primary logic
+
+          const dayData = dailyEntries[dateString];
+          // Calculate max and min temperatures for the day from all its entries
+          const temp_max = Math.round(Math.max(...dayData.temps_max));
+          const temp_min = Math.round(Math.min(...dayData.temps_min));
+          const icon = dayData.icons[0]; // Use the first icon recorded for the day
+          const description = dayData.descriptions[0]; // Use the first description
+
+          dailyForecastEl.innerHTML += `
+                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2 forecast-card">
+                        <div class="bg-white rounded-lg shadow-md h-full flex flex-col justify-between items-center text-center p-4">
+                            <h6 class="text-lg font-semibold text-gray-800">${dateString}</h6>
+                            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="weather-icon w-20 h-20" alt="${description}" onerror="this.onerror=null; this.src='https://placehold.co/80x80/FFFFFF/C0C0C0?text=Icon';">
+                            <p class="text-2xl font-bold text-gray-900 mb-1">${temp_max}°/${temp_min}°C</p>
+                            <p class="text-gray-600 capitalize">${description}</p>
+                        </div>
+                    </div>`;
+          count++;
+          uniqueDates.add(dateString); // Mark this date as displayed
+        }
+      }
+    }
+
+    function updateMap(lat, lon, locationName) {
+      if (!map) {
+        // This case should ideally not be hit if initializeLeafletMap is called on load.
+        console.warn(
+          "Map not initialized during updateMap call. Initializing now."
+        );
+        initializeLeafletMap(lat, lon, 10); // Initialize with a slightly closer zoom for searched location
+      } else {
+        map.flyTo([lat, lon], 10); // Smoothly pan and zoom to the new location
+      }
+
+      // Remove the previous marker if it exists
+      if (currentMarker) {
+        map.removeLayer(currentMarker);
+      }
+      // Add a new marker at the specified coordinates
+      currentMarker = L.marker([lat, lon])
+        .addTo(map)
+        .bindPopup(
+          `<b>${locationName}</b><br>Lat: ${lat.toFixed(
+            2
+          )}, Lon: ${lon.toFixed(2)}`
+        )
+        .openPopup(); // Open the popup immediately
+    }
+
+    function getWindDirection(deg) {
+      const directions = [
+        "Utara",
+        "Timur Laut",
+        "Timur",
+        "Tenggara",
+        "Selatan",
+        "Barat Daya",
+        "Barat",
+        "Barat Laut",
+      ];
+      // Calculate index based on 360 degrees divided into 8 segments (45 degrees each)
+      const index = Math.round((deg % 360) / 45);
+      return directions[index % 8]; // Modulo 8 ensures index stays within array bounds
+    }
+
+    // Event listener for the search form submission
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault(); // Prevent the default form submission behavior
+      const city = searchInput.value.trim(); // Get and trim the city name from input
+      if (city) {
+        fetchAllWeatherData(city, "city"); // Fetch weather for the entered city
+      } else {
+        showCustomError("Mohon masukkan nama kota untuk mencari cuaca."); // Show error if input is empty
+      }
+    });
+
+    // Function to get user's current location using the browser's Geolocation API
+    function getLocation() {
+      if (navigator.geolocation) {
+        // Check if Geolocation API is available
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            // Success callback: get coordinates and fetch weather
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            fetchAllWeatherData(`${lat},${lon}`, "coords"); // Fetch weather using coordinates
+          },
+          (error) => {
+            // Error callback: handle different geolocation errors
+            console.error("Geolocation error:", error);
+            let errMsg =
+              "Gagal mendapatkan lokasi Anda. Izinkan akses lokasi atau cari kota secara manual.";
+            if (error.code === error.PERMISSION_DENIED)
+              errMsg =
+                "Akses lokasi ditolak. Izinkan akses lokasi atau cari kota secara manual.";
+            else if (error.code === error.POSITION_UNAVAILABLE)
+              errMsg = "Informasi lokasi tidak tersedia.";
+            else if (error.code === error.TIMEOUT)
+              errMsg = "Waktu habis saat mencoba mendapatkan lokasi.";
+            showCustomError(errMsg);
+            console.log("Geolocation failed, falling back to Jakarta.");
+            fetchAllWeatherData("Jakarta", "city"); // Fallback to a default city (Jakarta)
+          }
+        );
+      } else {
+        // Geolocation API not supported by the browser
+        showCustomError(
+          "Geolocation tidak didukung oleh browser ini. Silakan cari kota secara manual."
+        );
+        console.log("Geolocation not supported, falling back to Jakarta.");
+        fetchAllWeatherData("Jakarta", "city"); // Fallback to a default city (Jakarta)
+      }
+    }
+
+    initializeLeafletMap();
+    getLocation();
+  </script>
+</body>
+
+</html>
