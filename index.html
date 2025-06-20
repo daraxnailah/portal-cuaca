@@ -320,7 +320,7 @@
           <div id="current-weather" class="my-4">
             <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
               <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only"></span>
               </div>
             </div>
           </div>
@@ -337,7 +337,14 @@
             <b>Prakiraan Cuaca Per Jam (24 Jam ke Depan)</b>
           </h3>
           <div id="hourly-forecast"
-            class="d-flex flex-wrap justify-content-lg-center py-3 px-2 bg-white rounded shadow"></div>
+            class="d-flex flex-wrap justify-content-lg-center py-3 px-2 bg-white rounded shadow">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
+              <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
+                <span class="sr-only"></span>
+              </div>
+            </div>
+
+            </div>
         </div>
       </div>
     </div>
@@ -351,7 +358,13 @@
           <h3 class="h4 font-weight-semibold text-dark mb-3 text-center">
             <b>Prakiraan Cuaca 5 Hari</b>
           </h3>
-          <div id="daily-forecast" class="d-flex flex-wrap justify-content-center mt-3"></div>
+          <div id="daily-forecast" class="d-flex flex-wrap justify-content-center mt-3">
+            <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
+              <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
+                <span class="sr-only"></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1018,7 +1031,6 @@
     }
 
     initializeLeafletMap();
-    getLocation();
   </script>
 </body>
 
