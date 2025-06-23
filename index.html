@@ -125,19 +125,18 @@
     }
 
     .accordion-button {
-     color: #2563eb !important; 
-     padding: 15px;
-     width: 100%;
-     text-align: left;
-     font-weight: bold;
-     font-size: 16px;
-     border: none;
-     cursor: pointer;
-     outline: none !important;
-     box-shadow: none !important; 
-     transition: background-color 0.3s ease, color 0.3s ease;
+      color: #2563eb !important;
+      padding: 15px;
+      width: 100%;
+      text-align: left;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      outline: none !important;
+      box-shadow: none !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    
 
     @media (max-width: 1200px) {
       .hourly-forecast-container {
@@ -146,6 +145,7 @@
     }
 
     @media (max-width: 768px) {
+
       .navbar-brand,
       .navbar-toggler,
       .nav-item,
@@ -154,11 +154,11 @@
         padding-right: 1.5rem;
       }
     }
-
   </style>
 </head>
 
 <!-- Navbar -->
+
 <body data-bs-spy="scroll" data-bs-target="#navbarSupportedContent" data-bs-offset="80" tabindex="0">
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
@@ -192,7 +192,9 @@
         <form class="cari d-flex" id="search-form">
           <input class="form-control me-2" type="search" placeholder="Cari lokasi" aria-label="Search"
             id="search-input" />
-          <button class="btn btn-light my-2 my-sm-0" type="submit">Cari</button>
+          <button class="btn btn-light my-2 my-sm-0" type="submit" id="search-form">
+            Cari
+          </button>
         </form>
       </div>
     </div>
@@ -220,7 +222,7 @@
         </div>
       </div>
     </div>
-  </section>]
+  </section>
 
   <!-- About-->
   <section class="section-padding my-5" id="about">
@@ -244,8 +246,7 @@
               </h5>
               <ul class="list-unstyled text-center mt-3">
                 <li>
-                  <i>Cuaca
-                  saat ini berdasarkan lokasi</i>
+                  <i>Cuaca saat ini berdasarkan lokasi</i>
                 </li>
                 <li>
                   <i>Prakiraan hingga 5 hari ke depan</i>
@@ -273,8 +274,7 @@
               </h5>
               <ul class="list-unstyled text-center mt-3">
                 <li>
-                  <i>HTML, CSS,
-                  JavaScript</i>
+                  <i>HTML, CSS, JavaScript</i>
                 </li>
                 <li>
                   <i>OpenWeatherMap API</i>
@@ -318,9 +318,8 @@
             <b>Cuaca Saat Ini</b>
           </h3>
           <div id="current-weather" class="my-4">
-            <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
-              <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
-                <span class="sr-only"></span>
+            <div class="text-center">
+                <p class="lead">Masukkan kota untuk melihat cuaca</p>
               </div>
             </div>
           </div>
@@ -338,13 +337,11 @@
           </h3>
           <div id="hourly-forecast"
             class="d-flex flex-wrap justify-content-lg-center py-3 px-2 bg-white rounded shadow">
-                    <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
-              <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
-                <span class="sr-only"></span>
+            <div class="text-center">
+                <p class="lead">Masukkan kota untuk melihat cuaca</p>
               </div>
             </div>
-
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -359,9 +356,8 @@
             <b>Prakiraan Cuaca 5 Hari</b>
           </h3>
           <div id="daily-forecast" class="d-flex flex-wrap justify-content-center mt-3">
-            <div class="d-flex justify-content-center align-items-center" style="height: 12rem">
-              <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem">
-                <span class="sr-only"></span>
+            <div class="text-center">
+                <p class="lead">Masukkan kota untuk melihat cuaca</p>
               </div>
             </div>
           </div>
@@ -388,7 +384,7 @@
   <section class="section-padding mb-5" id="faq">
     <div class="container">
       <h3 class="text-center mb-4 font-weight-bold">
-       <b>Frequently Asked Question</b>
+        <b>Frequently Asked Question</b>
       </h3>
       <div class="accordion" id="faqAccordion">
         <div class="accordion-item">
@@ -412,14 +408,13 @@
           <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Bagaimana cara aplikasi ini mengetahui lokasi saya?
+              Bagaimana cara aplikasi ini bekerja?
             </button>
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
             data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              Aplikasi menggunakan Geolocation API dari browser untuk
-              mendeteksi lokasi secara otomatis, dengan izin dari pengguna.
+              Pengguna hanya perlu memasukkan kota di pencarian lokasi dan informasi cuaca akan otomatis tampil sesuai kota yang dimasukkan.
             </div>
           </div>
         </div>
@@ -449,7 +444,9 @@
     <div class="container">
       <div class="text-center mb-4">
         <h3 class="h4 font-weight-bold text-dark"><b>Contact Us</b></h3>
-        <p class="lead text-dark">Silakan kirim pesan, kami akan segera membalasnya!</p>
+        <p class="lead text-dark">
+          Silakan kirim pesan, kami akan segera membalasnya!
+        </p>
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -461,10 +458,6 @@
             <div class="form-group">
               <label for="email">Alamat Email</label>
               <input type="email" class="form-control" id="email" name="email" placeholder="nama@email.com" required />
-            </div>
-            <div class="form-group">
-              <label for="subject">Subjek</label>
-              <input type="text" class="form-control" id="subject" name="subject" placeholder="Subjek pesan" />
             </div>
             <div class="form-group">
               <label for="message">Pesan</label>
@@ -484,9 +477,13 @@
 
   <!-- footer -->
   <footer class="bg-primary text-white text-center py-3 mt-auto shadow-inner">
-    <p class="mb-0 small">© 2025 Reserved by <a href="https://www.instagram.com/daraxnailah" target="_blank" style="color: white; ">Dara Nailah</a> |
-    Powered by <a href="https://gamelab.id" target="_blank" style="color: white;">Gamelab.id</a></p>
-  </footer> 
+    <p class="mb-0 small">
+      © 2025 Reserved by
+      <a href="https://www.instagram.com/daraxnailah" target="_blank" style="color: white">Dara Nailah</a>
+      | Powered by
+      <a href="https://gamelab.id" target="_blank" style="color: white">Gamelab.id</a>
+    </p>
+  </footer>
 
   <!-- Modal Error -->
   <div id="error-modal" class="modal-overlay">
@@ -496,7 +493,6 @@
       <button id="close-error-modal">Tutup</button>
     </div>
   </div>
-
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -508,37 +504,704 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  
+
   <script>
     AOS.init();
   </script>
-  
+
   <script>
-    const openWeatherApiKey = "b7135f59e130cf799c4eb331a4d50166"; // Get from https://openweathermap.org/api
-    const openAqApiKey =
+    "use strict";
+
+    function _typeof(obj) {
+      "@babel/helpers - typeof";
+      return (
+        (_typeof =
+          "function" == typeof Symbol && "symbol" == typeof Symbol.iterator
+            ? function (obj) {
+              return typeof obj;
+            }
+            : function (obj) {
+              return obj &&
+                "function" == typeof Symbol &&
+                obj.constructor === Symbol &&
+                obj !== Symbol.prototype
+                ? "symbol"
+                : typeof obj;
+            }),
+        _typeof(obj)
+      );
+    }
+    function _regeneratorRuntime() {
+      "use strict";
+        /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime =
+        function _regeneratorRuntime() {
+          return exports;
+        };
+      var exports = {},
+        Op = Object.prototype,
+        hasOwn = Op.hasOwnProperty,
+        defineProperty =
+          Object.defineProperty ||
+          function (obj, key, desc) {
+            obj[key] = desc.value;
+          },
+        $Symbol = "function" == typeof Symbol ? Symbol : {},
+        iteratorSymbol = $Symbol.iterator || "@@iterator",
+        asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator",
+        toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+      function define(obj, key, value) {
+        return (
+          Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: !0,
+            configurable: !0,
+            writable: !0,
+          }),
+          obj[key]
+        );
+      }
+      try {
+        define({}, "");
+      } catch (err) {
+        define = function define(obj, key, value) {
+          return (obj[key] = value);
+        };
+      }
+      function wrap(innerFn, outerFn, self, tryLocsList) {
+        var protoGenerator =
+          outerFn && outerFn.prototype instanceof Generator
+            ? outerFn
+            : Generator,
+          generator = Object.create(protoGenerator.prototype),
+          context = new Context(tryLocsList || []);
+        return (
+          defineProperty(generator, "_invoke", {
+            value: makeInvokeMethod(innerFn, self, context),
+          }),
+          generator
+        );
+      }
+      function tryCatch(fn, obj, arg) {
+        try {
+          return { type: "normal", arg: fn.call(obj, arg) };
+        } catch (err) {
+          return { type: "throw", arg: err };
+        }
+      }
+      exports.wrap = wrap;
+      var ContinueSentinel = {};
+      function Generator() { }
+      function GeneratorFunction() { }
+      function GeneratorFunctionPrototype() { }
+      var IteratorPrototype = {};
+      define(IteratorPrototype, iteratorSymbol, function () {
+        return this;
+      });
+      var getProto = Object.getPrototypeOf,
+        NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+      NativeIteratorPrototype &&
+        NativeIteratorPrototype !== Op &&
+        hasOwn.call(NativeIteratorPrototype, iteratorSymbol) &&
+        (IteratorPrototype = NativeIteratorPrototype);
+      var Gp =
+        (GeneratorFunctionPrototype.prototype =
+          Generator.prototype =
+          Object.create(IteratorPrototype));
+      function defineIteratorMethods(prototype) {
+        ["next", "throw", "return"].forEach(function (method) {
+          define(prototype, method, function (arg) {
+            return this._invoke(method, arg);
+          });
+        });
+      }
+      function AsyncIterator(generator, PromiseImpl) {
+        function invoke(method, arg, resolve, reject) {
+          var record = tryCatch(generator[method], generator, arg);
+          if ("throw" !== record.type) {
+            var result = record.arg,
+              value = result.value;
+            return value &&
+              "object" == _typeof(value) &&
+              hasOwn.call(value, "__await")
+              ? PromiseImpl.resolve(value.__await).then(
+                function (value) {
+                  invoke("next", value, resolve, reject);
+                },
+                function (err) {
+                  invoke("throw", err, resolve, reject);
+                }
+              )
+              : PromiseImpl.resolve(value).then(
+                function (unwrapped) {
+                  (result.value = unwrapped), resolve(result);
+                },
+                function (error) {
+                  return invoke("throw", error, resolve, reject);
+                }
+              );
+          }
+          reject(record.arg);
+        }
+        var previousPromise;
+        defineProperty(this, "_invoke", {
+          value: function value(method, arg) {
+            function callInvokeWithMethodAndArg() {
+              return new PromiseImpl(function (resolve, reject) {
+                invoke(method, arg, resolve, reject);
+              });
+            }
+            return (previousPromise = previousPromise
+              ? previousPromise.then(
+                callInvokeWithMethodAndArg,
+                callInvokeWithMethodAndArg
+              )
+              : callInvokeWithMethodAndArg());
+          },
+        });
+      }
+      function makeInvokeMethod(innerFn, self, context) {
+        var state = "suspendedStart";
+        return function (method, arg) {
+          if ("executing" === state)
+            throw new Error("Generator is already running");
+          if ("completed" === state) {
+            if ("throw" === method) throw arg;
+            return doneResult();
+          }
+          for (context.method = method, context.arg = arg; ;) {
+            var delegate = context.delegate;
+            if (delegate) {
+              var delegateResult = maybeInvokeDelegate(delegate, context);
+              if (delegateResult) {
+                if (delegateResult === ContinueSentinel) continue;
+                return delegateResult;
+              }
+            }
+            if ("next" === context.method)
+              context.sent = context._sent = context.arg;
+            else if ("throw" === context.method) {
+              if ("suspendedStart" === state)
+                throw ((state = "completed"), context.arg);
+              context.dispatchException(context.arg);
+            } else
+              "return" === context.method &&
+                context.abrupt("return", context.arg);
+            state = "executing";
+            var record = tryCatch(innerFn, self, context);
+            if ("normal" === record.type) {
+              if (
+                ((state = context.done ? "completed" : "suspendedYield"),
+                  record.arg === ContinueSentinel)
+              )
+                continue;
+              return { value: record.arg, done: context.done };
+            }
+            "throw" === record.type &&
+              ((state = "completed"),
+                (context.method = "throw"),
+                (context.arg = record.arg));
+          }
+        };
+      }
+      function maybeInvokeDelegate(delegate, context) {
+        var methodName = context.method,
+          method = delegate.iterator[methodName];
+        if (undefined === method)
+          return (
+            (context.delegate = null),
+            ("throw" === methodName &&
+              delegate.iterator["return"] &&
+              ((context.method = "return"),
+                (context.arg = undefined),
+                maybeInvokeDelegate(delegate, context),
+                "throw" === context.method)) ||
+            ("return" !== methodName &&
+              ((context.method = "throw"),
+                (context.arg = new TypeError(
+                  "The iterator does not provide a '" +
+                  methodName +
+                  "' method"
+                )))),
+            ContinueSentinel
+          );
+        var record = tryCatch(method, delegate.iterator, context.arg);
+        if ("throw" === record.type)
+          return (
+            (context.method = "throw"),
+            (context.arg = record.arg),
+            (context.delegate = null),
+            ContinueSentinel
+          );
+        var info = record.arg;
+        return info
+          ? info.done
+            ? ((context[delegate.resultName] = info.value),
+              (context.next = delegate.nextLoc),
+              "return" !== context.method &&
+              ((context.method = "next"), (context.arg = undefined)),
+              (context.delegate = null),
+              ContinueSentinel)
+            : info
+          : ((context.method = "throw"),
+            (context.arg = new TypeError("iterator result is not an object")),
+            (context.delegate = null),
+            ContinueSentinel);
+      }
+      function pushTryEntry(locs) {
+        var entry = { tryLoc: locs[0] };
+        1 in locs && (entry.catchLoc = locs[1]),
+          2 in locs &&
+          ((entry.finallyLoc = locs[2]), (entry.afterLoc = locs[3])),
+          this.tryEntries.push(entry);
+      }
+      function resetTryEntry(entry) {
+        var record = entry.completion || {};
+        (record.type = "normal"),
+          delete record.arg,
+          (entry.completion = record);
+      }
+      function Context(tryLocsList) {
+        (this.tryEntries = [{ tryLoc: "root" }]),
+          tryLocsList.forEach(pushTryEntry, this),
+          this.reset(!0);
+      }
+      function values(iterable) {
+        if (iterable) {
+          var iteratorMethod = iterable[iteratorSymbol];
+          if (iteratorMethod) return iteratorMethod.call(iterable);
+          if ("function" == typeof iterable.next) return iterable;
+          if (!isNaN(iterable.length)) {
+            var i = -1,
+              next = function next() {
+                for (; ++i < iterable.length;)
+                  if (hasOwn.call(iterable, i))
+                    return (next.value = iterable[i]), (next.done = !1), next;
+                return (next.value = undefined), (next.done = !0), next;
+              };
+            return (next.next = next);
+          }
+        }
+        return { next: doneResult };
+      }
+      function doneResult() {
+        return { value: undefined, done: !0 };
+      }
+      return (
+        (GeneratorFunction.prototype = GeneratorFunctionPrototype),
+        defineProperty(Gp, "constructor", {
+          value: GeneratorFunctionPrototype,
+          configurable: !0,
+        }),
+        defineProperty(GeneratorFunctionPrototype, "constructor", {
+          value: GeneratorFunction,
+          configurable: !0,
+        }),
+        (GeneratorFunction.displayName = define(
+          GeneratorFunctionPrototype,
+          toStringTagSymbol,
+          "GeneratorFunction"
+        )),
+        (exports.isGeneratorFunction = function (genFun) {
+          var ctor = "function" == typeof genFun && genFun.constructor;
+          return (
+            !!ctor &&
+            (ctor === GeneratorFunction ||
+              "GeneratorFunction" === (ctor.displayName || ctor.name))
+          );
+        }),
+        (exports.mark = function (genFun) {
+          return (
+            Object.setPrototypeOf
+              ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype)
+              : ((genFun.__proto__ = GeneratorFunctionPrototype),
+                define(genFun, toStringTagSymbol, "GeneratorFunction")),
+            (genFun.prototype = Object.create(Gp)),
+            genFun
+          );
+        }),
+        (exports.awrap = function (arg) {
+          return { __await: arg };
+        }),
+        defineIteratorMethods(AsyncIterator.prototype),
+        define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+          return this;
+        }),
+        (exports.AsyncIterator = AsyncIterator),
+        (exports.async = function (
+          innerFn,
+          outerFn,
+          self,
+          tryLocsList,
+          PromiseImpl
+        ) {
+          void 0 === PromiseImpl && (PromiseImpl = Promise);
+          var iter = new AsyncIterator(
+            wrap(innerFn, outerFn, self, tryLocsList),
+            PromiseImpl
+          );
+          return exports.isGeneratorFunction(outerFn)
+            ? iter
+            : iter.next().then(function (result) {
+              return result.done ? result.value : iter.next();
+            });
+        }),
+        defineIteratorMethods(Gp),
+        define(Gp, toStringTagSymbol, "Generator"),
+        define(Gp, iteratorSymbol, function () {
+          return this;
+        }),
+        define(Gp, "toString", function () {
+          return "[object Generator]";
+        }),
+        (exports.keys = function (val) {
+          var object = Object(val),
+            keys = [];
+          for (var key in object) keys.push(key);
+          return (
+            keys.reverse(),
+            function next() {
+              for (; keys.length;) {
+                var key = keys.pop();
+                if (key in object)
+                  return (next.value = key), (next.done = !1), next;
+              }
+              return (next.done = !0), next;
+            }
+          );
+        }),
+        (exports.values = values),
+        (Context.prototype = {
+          constructor: Context,
+          reset: function reset(skipTempReset) {
+            if (
+              ((this.prev = 0),
+                (this.next = 0),
+                (this.sent = this._sent = undefined),
+                (this.done = !1),
+                (this.delegate = null),
+                (this.method = "next"),
+                (this.arg = undefined),
+                this.tryEntries.forEach(resetTryEntry),
+                !skipTempReset)
+            )
+              for (var name in this)
+                "t" === name.charAt(0) &&
+                  hasOwn.call(this, name) &&
+                  !isNaN(+name.slice(1)) &&
+                  (this[name] = undefined);
+          },
+          stop: function stop() {
+            this.done = !0;
+            var rootRecord = this.tryEntries[0].completion;
+            if ("throw" === rootRecord.type) throw rootRecord.arg;
+            return this.rval;
+          },
+          dispatchException: function dispatchException(exception) {
+            if (this.done) throw exception;
+            var context = this;
+            function handle(loc, caught) {
+              return (
+                (record.type = "throw"),
+                (record.arg = exception),
+                (context.next = loc),
+                caught &&
+                ((context.method = "next"), (context.arg = undefined)),
+                !!caught
+              );
+            }
+            for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+              var entry = this.tryEntries[i],
+                record = entry.completion;
+              if ("root" === entry.tryLoc) return handle("end");
+              if (entry.tryLoc <= this.prev) {
+                var hasCatch = hasOwn.call(entry, "catchLoc"),
+                  hasFinally = hasOwn.call(entry, "finallyLoc");
+                if (hasCatch && hasFinally) {
+                  if (this.prev < entry.catchLoc)
+                    return handle(entry.catchLoc, !0);
+                  if (this.prev < entry.finallyLoc)
+                    return handle(entry.finallyLoc);
+                } else if (hasCatch) {
+                  if (this.prev < entry.catchLoc)
+                    return handle(entry.catchLoc, !0);
+                } else {
+                  if (!hasFinally)
+                    throw new Error("try statement without catch or finally");
+                  if (this.prev < entry.finallyLoc)
+                    return handle(entry.finallyLoc);
+                }
+              }
+            }
+          },
+          abrupt: function abrupt(type, arg) {
+            for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+              var entry = this.tryEntries[i];
+              if (
+                entry.tryLoc <= this.prev &&
+                hasOwn.call(entry, "finallyLoc") &&
+                this.prev < entry.finallyLoc
+              ) {
+                var finallyEntry = entry;
+                break;
+              }
+            }
+            finallyEntry &&
+              ("break" === type || "continue" === type) &&
+              finallyEntry.tryLoc <= arg &&
+              arg <= finallyEntry.finallyLoc &&
+              (finallyEntry = null);
+            var record = finallyEntry ? finallyEntry.completion : {};
+            return (
+              (record.type = type),
+              (record.arg = arg),
+              finallyEntry
+                ? ((this.method = "next"),
+                  (this.next = finallyEntry.finallyLoc),
+                  ContinueSentinel)
+                : this.complete(record)
+            );
+          },
+          complete: function complete(record, afterLoc) {
+            if ("throw" === record.type) throw record.arg;
+            return (
+              "break" === record.type || "continue" === record.type
+                ? (this.next = record.arg)
+                : "return" === record.type
+                  ? ((this.rval = this.arg = record.arg),
+                    (this.method = "return"),
+                    (this.next = "end"))
+                  : "normal" === record.type &&
+                  afterLoc &&
+                  (this.next = afterLoc),
+              ContinueSentinel
+            );
+          },
+          finish: function finish(finallyLoc) {
+            for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+              var entry = this.tryEntries[i];
+              if (entry.finallyLoc === finallyLoc)
+                return (
+                  this.complete(entry.completion, entry.afterLoc),
+                  resetTryEntry(entry),
+                  ContinueSentinel
+                );
+            }
+          },
+          catch: function _catch(tryLoc) {
+            for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+              var entry = this.tryEntries[i];
+              if (entry.tryLoc === tryLoc) {
+                var record = entry.completion;
+                if ("throw" === record.type) {
+                  var thrown = record.arg;
+                  resetTryEntry(entry);
+                }
+                return thrown;
+              }
+            }
+            throw new Error("illegal catch attempt");
+          },
+          delegateYield: function delegateYield(
+            iterable,
+            resultName,
+            nextLoc
+          ) {
+            return (
+              (this.delegate = {
+                iterator: values(iterable),
+                resultName: resultName,
+                nextLoc: nextLoc,
+              }),
+              "next" === this.method && (this.arg = undefined),
+              ContinueSentinel
+            );
+          },
+        }),
+        exports
+      );
+    }
+    function _slicedToArray(arr, i) {
+      return (
+        _arrayWithHoles(arr) ||
+        _iterableToArrayLimit(arr, i) ||
+        _unsupportedIterableToArray(arr, i) ||
+        _nonIterableRest()
+      );
+    }
+    function _nonIterableRest() {
+      throw new TypeError(
+        "Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+      );
+    }
+    function _iterableToArrayLimit(arr, i) {
+      var _i =
+        null == arr
+          ? null
+          : ("undefined" != typeof Symbol && arr[Symbol.iterator]) ||
+          arr["@@iterator"];
+      if (null != _i) {
+        var _s,
+          _e,
+          _x,
+          _r,
+          _arr = [],
+          _n = !0,
+          _d = !1;
+        try {
+          if (((_x = (_i = _i.call(arr)).next), 0 === i)) {
+            if (Object(_i) !== _i) return;
+            _n = !1;
+          } else
+            for (
+              ;
+              !(_n = (_s = _x.call(_i)).done) &&
+              (_arr.push(_s.value), _arr.length !== i);
+              _n = !0
+            );
+        } catch (err) {
+          (_d = !0), (_e = err);
+        } finally {
+          try {
+            if (
+              !_n &&
+              null != _i["return"] &&
+              ((_r = _i["return"]()), Object(_r) !== _r)
+            )
+              return;
+          } finally {
+            if (_d) throw _e;
+          }
+        }
+        return _arr;
+      }
+    }
+    function _arrayWithHoles(arr) {
+      if (Array.isArray(arr)) return arr;
+    }
+    function _toConsumableArray(arr) {
+      return (
+        _arrayWithoutHoles(arr) ||
+        _iterableToArray(arr) ||
+        _unsupportedIterableToArray(arr) ||
+        _nonIterableSpread()
+      );
+    }
+    function _nonIterableSpread() {
+      throw new TypeError(
+        "Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+      );
+    }
+    function _unsupportedIterableToArray(o, minLen) {
+      if (!o) return;
+      if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+      var n = Object.prototype.toString.call(o).slice(8, -1);
+      if (n === "Object" && o.constructor) n = o.constructor.name;
+      if (n === "Map" || n === "Set") return Array.from(o);
+      if (
+        n === "Arguments" ||
+        /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+      )
+        return _arrayLikeToArray(o, minLen);
+    }
+    function _iterableToArray(iter) {
+      if (
+        (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null) ||
+        iter["@@iterator"] != null
+      )
+        return Array.from(iter);
+    }
+    function _arrayWithoutHoles(arr) {
+      if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+    }
+    function _arrayLikeToArray(arr, len) {
+      if (len == null || len > arr.length) len = arr.length;
+      for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+      return arr2;
+    }
+    function asyncGeneratorStep(
+      gen,
+      resolve,
+      reject,
+      _next,
+      _throw,
+      key,
+      arg
+    ) {
+      try {
+        var info = gen[key](arg);
+        var value = info.value;
+      } catch (error) {
+        reject(error);
+        return;
+      }
+      if (info.done) {
+        resolve(value);
+      } else {
+        Promise.resolve(value).then(_next, _throw);
+      }
+    }
+    function _asyncToGenerator(fn) {
+      return function () {
+        var self = this,
+          args = arguments;
+        return new Promise(function (resolve, reject) {
+          var gen = fn.apply(self, args);
+          function _next(value) {
+            asyncGeneratorStep(
+              gen,
+              resolve,
+              reject,
+              _next,
+              _throw,
+              "next",
+              value
+            );
+          }
+          function _throw(err) {
+            asyncGeneratorStep(
+              gen,
+              resolve,
+              reject,
+              _next,
+              _throw,
+              "throw",
+              err
+            );
+          }
+          _next(undefined);
+        });
+      };
+    }
+    var openWeatherApiKey = "b7135f59e130cf799c4eb331a4d50166"; // Get from https://openweathermap.org/api
+    var openAqApiKey =
       "dc2eb58cd079f0343bd100930f10115d7dfeb12343cd6d6f2fffb01c243faf82"; // Get from https://openaq.org/ (optional, for AQI)
 
     // DOM Elements
-    const currentWeatherEl = document.getElementById("current-weather");
-    const hourlyForecastEl = document.getElementById("hourly-forecast");
-    const dailyForecastEl = document.getElementById("daily-forecast");
-    const searchForm = document.getElementById("search-form");
-    const searchInput = document.getElementById("search-input");
-    const errorModal = document.getElementById("error-modal");
-    const errorMessageEl = document.getElementById("error-message");
-    const closeErrorModalBtn = document.getElementById("close-error-modal");
+    var currentWeatherEl = document.getElementById("current-weather");
+    var hourlyForecastEl = document.getElementById("hourly-forecast");
+    var dailyForecastEl = document.getElementById("daily-forecast");
+    var searchForm = document.getElementById("search-form");
+    var searchInput = document.getElementById("search-input");
+    var errorModal = document.getElementById("error-modal");
+    var errorMessageEl = document.getElementById("error-message");
+    var closeErrorModalBtn = document.getElementById("close-error-modal");
 
     // Initialize Leaflet Map
-    let map;
-    let currentMarker;
-    let tempLayer, precipLayer, cloudsLayer; // Variables for weather tile layers
+    var map;
+    var currentMarker;
+    var tempLayer, precipLayer, cloudsLayer; // Variables for weather tile layers
 
-    function initializeLeafletMap(
-      initialLat = -7.2575,
-      initialLon = 112.7508,
-      initialZoom = 9
-    ) {
-
+    function initializeLeafletMap() {
+      var initialLat =
+        arguments.length > 0 && arguments[0] !== undefined
+          ? arguments[0]
+          : -7.2575;
+      var initialLon =
+        arguments.length > 1 && arguments[1] !== undefined
+          ? arguments[1]
+          : 112.7508;
+      var initialZoom =
+        arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 9;
       if (map) {
         map.setView([initialLat, initialLon], initialZoom);
         return;
@@ -546,7 +1209,7 @@
       map = L.map("map").setView([initialLat, initialLon], initialZoom);
 
       // Base Layer (OpenStreetMap)
-      const osmLayer = L.tileLayer(
+      var osmLayer = L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
           attribution:
@@ -556,7 +1219,9 @@
 
       // --- OpenWeatherMap Tile Layers ---
       tempLayer = L.tileLayer(
-        `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${openWeatherApiKey}`,
+        "https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=".concat(
+          openWeatherApiKey
+        ),
         {
           attribution:
             'Map data &copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
@@ -564,7 +1229,9 @@
         }
       );
       precipLayer = L.tileLayer(
-        `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${openWeatherApiKey}`,
+        "https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=".concat(
+          openWeatherApiKey
+        ),
         {
           attribution:
             'Map data &copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
@@ -572,155 +1239,293 @@
         }
       );
       cloudsLayer = L.tileLayer(
-        `https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${openWeatherApiKey}`,
+        "https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=".concat(
+          openWeatherApiKey
+        ),
         {
           attribution:
             'Map data &copy; <a href="https://openweathermap.org/">OpenWeatherMap</a>',
           opacity: 1,
         }
       );
-
-      const baseMaps = {
+      var baseMaps = {
         OpenStreetMap: osmLayer,
       };
-
-      const overlayMaps = {
+      var overlayMaps = {
         Temperature: tempLayer,
         Precipitation: precipLayer,
         Clouds: cloudsLayer,
       };
-
       L.control.layers(baseMaps, overlayMaps).addTo(map);
     }
-
     function showCustomError(message) {
       errorMessageEl.textContent = message;
       errorModal.classList.add("show");
     }
 
     // Close error modal event listener
-    closeErrorModalBtn.addEventListener("click", () => {
+    closeErrorModalBtn.addEventListener("click", function () {
       errorModal.classList.remove("show");
     });
-
-    async function fetchAllWeatherData(query, type = "city") {
-      // Display loading spinner in current weather section
-      currentWeatherEl.innerHTML = `
-            <div class="flex justify-center items-center h-48">
-                <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-        `;
-      // Clear previous forecast data
-      hourlyForecastEl.innerHTML = "";
-      dailyForecastEl.innerHTML = "";
-
-      let weatherUrl;
-      let forecastUrl;
-      let lat, lon; // These will be determined or confirmed by the API response
-
-      // Construct API URLs based on query type (city name or coordinates)
-      if (type === "city") {
-        weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
-          query
-        )}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
-        forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(
-          query
-        )}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
-      } else if (type === "coords") {
-        [lat, lon] = query.split(","); // Destructure coordinates from query string
-        weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
-        forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=id&APPID=${openWeatherApiKey}`;
-      } else {
-        showCustomError("Tipe query tidak valid.");
-        currentWeatherEl.innerHTML = `<p class="text-red-500 text-lg">Tipe query tidak valid.</p>`; // Also show error in main section
-        return;
-      }
-
-      try {
-        // Fetch current weather and forecast data in parallel
-        const [weatherRes, forecastRes] = await Promise.all([
-          fetch(weatherUrl),
-          fetch(forecastUrl),
-        ]);
-
-        // Check if weather response is OK
-        if (!weatherRes.ok) {
-          const errorData = await weatherRes.json();
-          throw new Error(
-            `Gagal mengambil cuaca saat ini: ${errorData.message || weatherRes.statusText
-            } (Status: ${weatherRes.status})`
-          );
-        }
-        // Check if forecast response is OK
-        if (!forecastRes.ok) {
-          const errorData = await forecastRes.json();
-          throw new Error(
-            `Gagal mengambil prakiraan cuaca: ${errorData.message || forecastRes.statusText
-            } (Status: ${forecastRes.status})`
-          );
-        }
-
-        const currentWeatherData = await weatherRes.json();
-        const forecastData = await forecastRes.json();
-
-        // Update latitude and longitude from the current weather data (most accurate source)
-        lat = currentWeatherData.coord.lat;
-        lon = currentWeatherData.coord.lon;
-
-        let airQualityData = null;
-        // Fetch air quality data if an API key is provided
-        if (openAqApiKey) {
-          try {
-            const airQualityRes = await fetch(
-              `https://api.openaq.org/v2/latest?coordinates=${lat},${lon}&limit=1&order_by=distance&sort=asc`,
-              {
-                headers: { "X-API-Key": openAqApiKey }, // OpenAQ uses X-API-Key header
-              }
-            );
-            if (airQualityRes.ok) {
-              airQualityData = await airQualityRes.json();
-            } else {
-              // Log warning if AQI data fetch fails but don't break the entire flow
-              console.warn(
-                "Gagal mengambil data kualitas udara:",
-                airQualityRes.status,
-                await airQualityRes.text()
-              );
-            }
-          } catch (aqErr) {
-            console.error("Error fetching Air Quality:", aqErr);
-          }
-        }
-
-        // Render all fetched data
-        renderCurrentWeather(currentWeatherData, airQualityData);
-        renderHourlyForecast(forecastData);
-        renderDailyForecast(forecastData);
-        updateMap(lat, lon, currentWeatherData.name); // Update map with new location
-      } catch (err) {
-        // Handle errors from API calls or data processing
-        currentWeatherEl.innerHTML = `<p class="text-red-500 text-lg">Gagal mengambil data cuaca. ${err.message}</p>`;
-        console.error("Error in fetchAllWeatherData:", err);
-        showCustomError(
-          `Gagal mengambil data cuaca: ${err.message}. Pastikan nama kota benar, koneksi internet stabil, dan API key valid.`
-        );
-        // If map wasn't initialized due to an early error, try initializing with default view
-        if (!map) initializeLeafletMap();
-      }
+    function fetchAllWeatherData(_x) {
+      return _fetchAllWeatherData.apply(this, arguments);
     }
-
+    function _fetchAllWeatherData() {
+      _fetchAllWeatherData = _asyncToGenerator(
+          /*#__PURE__*/ _regeneratorRuntime().mark(function _callee(query) {
+        var type,
+          weatherUrl,
+          forecastUrl,
+          lat,
+          lon,
+          _query$split,
+          _query$split2,
+          _yield$Promise$all,
+          _yield$Promise$all2,
+          weatherRes,
+          forecastRes,
+          errorData,
+          _errorData,
+          currentWeatherData,
+          forecastData,
+          airQualityData,
+          airQualityRes,
+          _args = arguments;
+        return _regeneratorRuntime().wrap(
+          function _callee$(_context) {
+            while (1)
+              switch ((_context.prev = _context.next)) {
+                case 0:
+                  type =
+                    _args.length > 1 && _args[1] !== undefined
+                      ? _args[1]
+                      : "city";
+                  // Display loading spinner in current weather section
+                  currentWeatherEl.innerHTML =
+                    '\n            <div class="flex justify-center items-center h-48">\n                <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>\n            </div>\n        ';
+                  // Clear previous forecast data
+                  hourlyForecastEl.innerHTML = "";
+                  dailyForecastEl.innerHTML = "";
+                  if (!(type === "city")) {
+                    _context.next = 9;
+                    break;
+                  }
+                  weatherUrl =
+                    "https://api.openweathermap.org/data/2.5/weather?q="
+                      .concat(
+                        encodeURIComponent(query),
+                        "&units=metric&lang=id&APPID="
+                      )
+                      .concat(openWeatherApiKey);
+                  forecastUrl =
+                    "https://api.openweathermap.org/data/2.5/forecast?q="
+                      .concat(
+                        encodeURIComponent(query),
+                        "&units=metric&lang=id&APPID="
+                      )
+                      .concat(openWeatherApiKey);
+                  _context.next = 21;
+                  break;
+                case 9:
+                  if (!(type === "coords")) {
+                    _context.next = 18;
+                    break;
+                  }
+                  _query$split = query.split(",");
+                  _query$split2 = _slicedToArray(_query$split, 2);
+                  lat = _query$split2[0];
+                  lon = _query$split2[1];
+                  // Destructure coordinates from query string
+                  weatherUrl =
+                    "https://api.openweathermap.org/data/2.5/weather?lat="
+                      .concat(lat, "&lon=")
+                      .concat(lon, "&units=metric&lang=id&APPID=")
+                      .concat(openWeatherApiKey);
+                  forecastUrl =
+                    "https://api.openweathermap.org/data/2.5/forecast?lat="
+                      .concat(lat, "&lon=")
+                      .concat(lon, "&units=metric&lang=id&APPID=")
+                      .concat(openWeatherApiKey);
+                  _context.next = 21;
+                  break;
+                case 18:
+                  showCustomError("Tipe query tidak valid.");
+                  currentWeatherEl.innerHTML =
+                    '<p class="text-red-500 text-lg">Tipe query tidak valid.</p>'; // Also show error in main section
+                  return _context.abrupt("return");
+                case 21:
+                  _context.prev = 21;
+                  _context.next = 24;
+                  return Promise.all([
+                    fetch(weatherUrl),
+                    fetch(forecastUrl),
+                  ]);
+                case 24:
+                  _yield$Promise$all = _context.sent;
+                  _yield$Promise$all2 = _slicedToArray(
+                    _yield$Promise$all,
+                    2
+                  );
+                  weatherRes = _yield$Promise$all2[0];
+                  forecastRes = _yield$Promise$all2[1];
+                  if (weatherRes.ok) {
+                    _context.next = 33;
+                    break;
+                  }
+                  _context.next = 31;
+                  return weatherRes.json();
+                case 31:
+                  errorData = _context.sent;
+                  throw new Error(
+                    "Gagal mengambil cuaca saat ini: "
+                      .concat(
+                        errorData.message || weatherRes.statusText,
+                        " (Status: "
+                      )
+                      .concat(weatherRes.status, ")")
+                  );
+                case 33:
+                  if (forecastRes.ok) {
+                    _context.next = 38;
+                    break;
+                  }
+                  _context.next = 36;
+                  return forecastRes.json();
+                case 36:
+                  _errorData = _context.sent;
+                  throw new Error(
+                    "Gagal mengambil prakiraan cuaca: "
+                      .concat(
+                        _errorData.message || forecastRes.statusText,
+                        " (Status: "
+                      )
+                      .concat(forecastRes.status, ")")
+                  );
+                case 38:
+                  _context.next = 40;
+                  return weatherRes.json();
+                case 40:
+                  currentWeatherData = _context.sent;
+                  _context.next = 43;
+                  return forecastRes.json();
+                case 43:
+                  forecastData = _context.sent;
+                  // Update latitude and longitude from the current weather data (most accurate source)
+                  lat = currentWeatherData.coord.lat;
+                  lon = currentWeatherData.coord.lon;
+                  airQualityData = null; // Fetch air quality data if an API key is provided
+                  if (!openAqApiKey) {
+                    _context.next = 69;
+                    break;
+                  }
+                  _context.prev = 48;
+                  _context.next = 51;
+                  return fetch(
+                    "https://api.openaq.org/v2/latest?coordinates="
+                      .concat(lat, ",")
+                      .concat(lon, "&limit=1&order_by=distance&sort=asc"),
+                    {
+                      headers: {
+                        "X-API-Key": openAqApiKey,
+                      }, // OpenAQ uses X-API-Key header
+                    }
+                  );
+                case 51:
+                  airQualityRes = _context.sent;
+                  if (!airQualityRes.ok) {
+                    _context.next = 58;
+                    break;
+                  }
+                  _context.next = 55;
+                  return airQualityRes.json();
+                case 55:
+                  airQualityData = _context.sent;
+                  _context.next = 64;
+                  break;
+                case 58:
+                  _context.t0 = console;
+                  _context.t1 = airQualityRes.status;
+                  _context.next = 62;
+                  return airQualityRes.text();
+                case 62:
+                  _context.t2 = _context.sent;
+                  _context.t0.warn.call(
+                    _context.t0,
+                    "Gagal mengambil data kualitas udara:",
+                    _context.t1,
+                    _context.t2
+                  );
+                case 64:
+                  _context.next = 69;
+                  break;
+                case 66:
+                  _context.prev = 66;
+                  _context.t3 = _context["catch"](48);
+                  console.error("Error fetching Air Quality:", _context.t3);
+                case 69:
+                  // Render all fetched data
+                  renderCurrentWeather(currentWeatherData, airQualityData);
+                  renderHourlyForecast(forecastData);
+                  renderDailyForecast(forecastData);
+                  updateMap(lat, lon, currentWeatherData.name); // Update map with new location
+                  _context.next = 81;
+                  break;
+                case 75:
+                  _context.prev = 75;
+                  _context.t4 = _context["catch"](21);
+                  // Handle errors from API calls or data processing
+                  currentWeatherEl.innerHTML =
+                    '<p class="text-red-500 text-lg">Gagal mengambil data cuaca. '.concat(
+                      _context.t4.message,
+                      "</p>"
+                    );
+                  console.error(
+                    "Error in fetchAllWeatherData:",
+                    _context.t4
+                  );
+                  showCustomError(
+                    "Gagal mengambil data cuaca: ".concat(
+                      _context.t4.message,
+                      ". Pastikan nama kota benar, koneksi internet stabil, dan API key valid."
+                    )
+                  );
+                  // If map wasn't initialized due to an early error, try initializing with default view
+                  if (!map) initializeLeafletMap();
+                case 81:
+                case "end":
+                  return _context.stop();
+              }
+          },
+          _callee,
+          null,
+          [
+            [21, 75],
+            [48, 66],
+          ]
+        );
+      })
+      );
+      return _fetchAllWeatherData.apply(this, arguments);
+    }
     function renderCurrentWeather(data, airQualityData) {
       // Format sunrise and sunset times to local Indonesian time
-      const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString(
+      var sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString(
         "id-ID",
-        { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta" }
+        {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "Asia/Jakarta",
+        }
       );
-      const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString(
+      var sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString(
         "id-ID",
-        { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta" }
+        {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "Asia/Jakarta",
+        }
       );
-
-      let aqiHtml = ""; // Initialize AQI HTML string
+      var aqiHtml = ""; // Initialize AQI HTML string
       // Process and display AQI data if available
       if (
         airQualityData &&
@@ -728,129 +1533,158 @@
         airQualityData.results.length > 0
       ) {
         // Find common AQI parameters (PM2.5, PM10, O3)
-        const pm25 = airQualityData.results[0].measurements.find(
-          (m) => m.parameter === "pm25"
-        );
-        const pm10 = airQualityData.results[0].measurements.find(
-          (m) => m.parameter === "pm10"
-        );
-        const o3 = airQualityData.results[0].measurements.find(
-          (m) => m.parameter === "o3"
-        );
-        let aqiDisplay = []; // Array to hold formatted AQI strings
+        var pm25 = airQualityData.results[0].measurements.find(function (m) {
+          return m.parameter === "pm25";
+        });
+        var pm10 = airQualityData.results[0].measurements.find(function (m) {
+          return m.parameter === "pm10";
+        });
+        var o3 = airQualityData.results[0].measurements.find(function (m) {
+          return m.parameter === "o3";
+        });
+        var aqiDisplay = []; // Array to hold formatted AQI strings
 
         if (pm25)
           aqiDisplay.push(
-            `<strong>PM2.5:</strong> ${pm25.value.toFixed(1)} ${pm25.unit}`
+            "<strong>PM2.5:</strong> "
+              .concat(pm25.value.toFixed(1), " ")
+              .concat(pm25.unit)
           );
         if (pm10)
           aqiDisplay.push(
-            `<strong>PM10:</strong> ${pm10.value.toFixed(1)} ${pm10.unit}`
+            "<strong>PM10:</strong> "
+              .concat(pm10.value.toFixed(1), " ")
+              .concat(pm10.unit)
           );
         if (o3)
           aqiDisplay.push(
-            `<strong>O3:</strong> ${o3.value.toFixed(1)} ${o3.unit}`
+            "<strong>O3:</strong> "
+              .concat(o3.value.toFixed(1), " ")
+              .concat(o3.unit)
           );
-
         if (aqiDisplay.length > 0) {
-          aqiHtml = `
-                    <div class="mt-4 pt-4 border-t border-gray-200">
-                        <p class="text-lg font-semibold">Kualitas Udara:</p>
-                        <p class="text-gray-700">${aqiDisplay.join("<br>")}</p>
-                        <p class="text-sm text-gray-500">Stasiun: ${airQualityData.results[0].location ||
-            "Tidak diketahui"
-            }</p>
-                    </div>`;
+          aqiHtml =
+            '\n                    <div class="mt-4 pt-4 border-t border-gray-200">\n                        <p class="text-lg font-semibold">Kualitas Udara:</p>\n                        <p class="text-gray-700">'
+              .concat(
+                aqiDisplay.join("<br>"),
+                '</p>\n                        <p class="text-sm text-gray-500">Stasiun: '
+              )
+              .concat(
+                airQualityData.results[0].location || "Tidak diketahui",
+                "</p>\n                    </div>"
+              );
         } else {
-          aqiHtml = `
-                    <div class="mt-4 pt-4 border-t border-gray-200">
-                        <p class="text-lg font-semibold">Kualitas Udara:</p>
-                        <p class="text-gray-700">Data AQI utama (PM2.5, PM10, O3) tidak ditemukan.</p>
-                        <p class="text-sm text-gray-500">Stasiun: ${airQualityData.results[0].location ||
-            "Tidak diketahui"
-            }</p>
-                    </div>`;
+          aqiHtml =
+            '\n                    <div class="mt-4 pt-4 border-t border-gray-200">\n                        <p class="text-lg font-semibold">Kualitas Udara:</p>\n                        <p class="text-gray-700">Data AQI utama (PM2.5, PM10, O3) tidak ditemukan.</p>\n                        <p class="text-sm text-gray-500">Stasiun: '.concat(
+              airQualityData.results[0].location || "Tidak diketahui",
+              "</p>\n                    </div>"
+            );
         }
       }
 
       // Populate current weather HTML
-      currentWeatherEl.innerHTML = `
-        <div class="bg-white rounded shadow p-4 p-md-5 mx-auto" style="max-width: 720px;">
-            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-4">
-            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon
-        }@4x.png" 
-                class="flex-shrink-0 img-fluid" 
-                alt="Icon Cuaca ${data.weather[0].description}" 
-                onerror="this.onerror=null; this.src='https://placehold.co/100x100/FFFFFF/C0C0C0?text=Icon';">
-            <div class="mt-4 mt-md-0 text-center text-md-left ml-md-4">
-                <h1 class="display-4 font-weight-bold text-dark">${Math.round(
-          data.main.temp
-        )}°C</h1>
-                <p class="h5 text-muted text-capitalize">${data.weather[0].description
-        }</p>
-                <h2 class="h4 font-weight-semibold text-dark mt-2">${data.name
-        }, ${data.sys.country}</h2>
-            </div>
-            </div>
-            <div class="row text-dark">
-            <div class="col-md-6 mb-3">
-                <p><strong>Terasa Seperti:</strong> ${Math.round(
-          data.main.feels_like
-        )}°C</p>
-                <p><strong>Kelembapan:</strong> ${data.main.humidity}%</p>
-                <p><strong>Tekanan Udara:</strong> ${data.main.pressure} hPa</p>
-                <p><strong>Visibilitas:</strong> ${(
-          data.visibility / 1000
-        ).toFixed(1)} km</p>
-            </div>
-            <div class="col-md-6 mb-3">
-                <p><strong>Kecepatan Angin:</strong> ${data.wind.speed
-        } m/s (${getWindDirection(data.wind.deg)})</p>
-                <p><strong>Awan:</strong> ${data.clouds.all}%</p>
-                <p><strong>Matahari Terbit:</strong> ${sunrise}</p>
-                <p><strong>Matahari Terbenam:</strong> ${sunset}</p>
-            </div>
-            </div>
-            ${aqiHtml}
-        </div>
-        `;
+      currentWeatherEl.innerHTML =
+        '\n        <div class="bg-white rounded shadow p-4 p-md-5 mx-auto" style="max-width: 720px;">\n            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-4">\n            <img src="https://openweathermap.org/img/wn/'
+          .concat(
+            data.weather[0].icon,
+            '@4x.png" \n                class="flex-shrink-0 img-fluid" \n                alt="Icon Cuaca '
+          )
+          .concat(
+            data.weather[0].description,
+            '" \n                onerror="this.onerror=null; this.src=\'https://placehold.co/100x100/FFFFFF/C0C0C0?text=Icon\';">\n            <div class="mt-4 mt-md-0 text-center text-md-left ml-md-4">\n                <h1 class="display-4 font-weight-bold text-dark">'
+          )
+          .concat(
+            Math.round(data.main.temp),
+            '\xB0C</h1>\n                <p class="h5 text-muted text-capitalize">'
+          )
+          .concat(
+            data.weather[0].description,
+            '</p>\n                <h2 class="h4 font-weight-semibold text-dark mt-2">'
+          )
+          .concat(data.name, ", ")
+          .concat(
+            data.sys.country,
+            '</h2>\n            </div>\n            </div>\n            <div class="row text-dark">\n            <div class="col-md-6 mb-3">\n                <p><strong>Terasa Seperti:</strong> '
+          )
+          .concat(
+            Math.round(data.main.feels_like),
+            "\xB0C</p>\n                <p><strong>Kelembapan:</strong> "
+          )
+          .concat(
+            data.main.humidity,
+            "%</p>\n                <p><strong>Tekanan Udara:</strong> "
+          )
+          .concat(
+            data.main.pressure,
+            " hPa</p>\n                <p><strong>Visibilitas:</strong> "
+          )
+          .concat(
+            (data.visibility / 1000).toFixed(1),
+            ' km</p>\n            </div>\n            <div class="col-md-6 mb-3">\n                <p><strong>Kecepatan Angin:</strong> '
+          )
+          .concat(data.wind.speed, " m/s (")
+          .concat(
+            getWindDirection(data.wind.deg),
+            ")</p>\n                <p><strong>Awan:</strong> "
+          )
+          .concat(
+            data.clouds.all,
+            "%</p>\n                <p><strong>Matahari Terbit:</strong> "
+          )
+          .concat(
+            sunrise,
+            "</p>\n                <p><strong>Matahari Terbenam:</strong> "
+          )
+          .concat(
+            sunset,
+            "</p>\n            </div>\n            </div>\n            "
+          )
+          .concat(aqiHtml, "\n        </div>\n        ");
     }
-
     function renderHourlyForecast(data) {
       hourlyForecastEl.innerHTML = ""; // Clear previous forecast
-      for (let i = 0; i < Math.min(8, data.list.length); i++) {
+      for (var i = 0; i < Math.min(8, data.list.length); i++) {
         // Show up to 8 entries
-        const item = data.list[i];
-        const time = new Date(item.dt * 1000).toLocaleTimeString("id-ID", {
+        var item = data.list[i];
+        var time = new Date(item.dt * 1000).toLocaleTimeString("id-ID", {
           hour: "2-digit",
           minute: "2-digit",
           timeZone: "Asia/Jakarta",
         });
-        hourlyForecastEl.innerHTML += `
-                <div class="hourly-forecast-item text-center p-3 m-2 bg-blue-50 rounded-lg shadow-sm flex-shrink-0">
-                    <small class="text-gray-600 block">${time}</small>
-                    <img src="https://openweathermap.org/img/wn/${item.weather[0].icon
-          }.png" class="w-12 h-12 mx-auto" alt="${item.weather[0].description
-          }" onerror="this.onerror=null; this.src='https://placehold.co/48x48/FFFFFF/C0C0C0?text=Icon';">
-                    <strong class="block text-lg text-gray-800">${Math.round(
-            item.main.temp
-          )}°C</strong>
-                    <small class="text-gray-500 capitalize">${item.weather[0].description
-          }</small>
-                </div>`;
+        hourlyForecastEl.innerHTML +=
+          '\n                <div class="hourly-forecast-item text-center p-3 m-2 bg-blue-50 rounded-lg shadow-sm flex-shrink-0">\n                    <small class="text-gray-600 block">'
+            .concat(
+              time,
+              '</small>\n                    <img src="https://openweathermap.org/img/wn/'
+            )
+            .concat(
+              item.weather[0].icon,
+              '.png" class="w-12 h-12 mx-auto" alt="'
+            )
+            .concat(
+              item.weather[0].description,
+              '" onerror="this.onerror=null; this.src=\'https://placehold.co/48x48/FFFFFF/C0C0C0?text=Icon\';">\n                    <strong class="block text-lg text-gray-800">'
+            )
+            .concat(
+              Math.round(item.main.temp),
+              '\xB0C</strong>\n                    <small class="text-gray-500 capitalize">'
+            )
+            .concat(
+              item.weather[0].description,
+              "</small>\n                </div>"
+            );
       }
     }
-
     function renderDailyForecast(data) {
       dailyForecastEl.innerHTML = ""; // Clear previous forecast
-      const uniqueDates = new Set(); // To ensure each date is displayed only once
-      let count = 0; // Counter for displayed days
+      var uniqueDates = new Set(); // To ensure each date is displayed only once
+      var count = 0; // Counter for displayed days
 
       // Primary logic: find entries at 12:00:00 for each day
-      data.list.forEach((item) => {
+      data.list.forEach(function (item) {
         if (count >= 5) return; // Stop if 5 days are already displayed
-        const dateObj = new Date(item.dt * 1000);
-        const dateString = dateObj.toLocaleDateString("id-ID", {
+        var dateObj = new Date(item.dt * 1000);
+        var dateString = dateObj.toLocaleDateString("id-ID", {
           weekday: "short",
           day: "numeric",
           month: "short",
@@ -862,31 +1696,40 @@
           item.dt_txt.includes("12:00:00")
         ) {
           uniqueDates.add(dateString);
-          dailyForecastEl.innerHTML += `
-                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2 forecast-card">
-                        <div class="bg-white rounded-lg shadow-md h-full flex flex-col justify-between items-center text-center p-4">
-                            <h6 class="text-lg font-semibold text-gray-800">${dateString}</h6>
-                            <img src="https://openweathermap.org/img/wn/${item.weather[0].icon
-            }@2x.png" class="weather-icon w-20 h-20" alt="${item.weather[0].description
-            }" onerror="this.onerror=null; this.src='https://placehold.co/80x80/FFFFFF/C0C0C0?text=Icon';">
-                            <p class="text-2xl font-bold text-gray-900 mb-1">${Math.round(
-              item.main.temp_max
-            )}°/${Math.round(item.main.temp_min)}°C</p>
-                            <p class="text-gray-600 capitalize">${item.weather[0].description
-            }</p>
-                        </div>
-                    </div>`;
+          dailyForecastEl.innerHTML +=
+            '\n                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2 forecast-card">\n                        <div class="bg-white rounded-lg shadow-md h-full flex flex-col justify-between items-center text-center p-4">\n                            <h6 class="text-lg font-semibold text-gray-800">'
+              .concat(
+                dateString,
+                '</h6>\n                            <img src="https://openweathermap.org/img/wn/'
+              )
+              .concat(
+                item.weather[0].icon,
+                '@2x.png" class="weather-icon w-20 h-20" alt="'
+              )
+              .concat(
+                item.weather[0].description,
+                '" onerror="this.onerror=null; this.src=\'https://placehold.co/80x80/FFFFFF/C0C0C0?text=Icon\';">\n                            <p class="text-2xl font-bold text-gray-900 mb-1">'
+              )
+              .concat(Math.round(item.main.temp_max), "\xB0/")
+              .concat(
+                Math.round(item.main.temp_min),
+                '\xB0C</p>\n                            <p class="text-gray-600 capitalize">'
+              )
+              .concat(
+                item.weather[0].description,
+                "</p>\n                        </div>\n                    </div>"
+              );
           count++;
         }
       });
 
       // Fallback logic: if less than 5 days were found using midday entries
       if (count < 5) {
-        const dailyEntries = {}; // Object to group forecast items by date
+        var dailyEntries = {}; // Object to group forecast items by date
         // Group all forecast items by their date string
-        data.list.forEach((item) => {
-          const dateObj = new Date(item.dt * 1000);
-          const dateString = dateObj.toLocaleDateString("id-ID", {
+        data.list.forEach(function (item) {
+          var dateObj = new Date(item.dt * 1000);
+          var dateString = dateObj.toLocaleDateString("id-ID", {
             weekday: "short",
             day: "numeric",
             month: "short",
@@ -913,26 +1756,41 @@
         });
 
         // Iterate through grouped daily entries to fill remaining days
-        for (const dateString in dailyEntries) {
+        for (var dateString in dailyEntries) {
           if (count >= 5) break; // Stop if 5 days are now displayed
           if (uniqueDates.has(dateString)) continue; // Skip if already added by primary logic
 
-          const dayData = dailyEntries[dateString];
+          var dayData = dailyEntries[dateString];
           // Calculate max and min temperatures for the day from all its entries
-          const temp_max = Math.round(Math.max(...dayData.temps_max));
-          const temp_min = Math.round(Math.min(...dayData.temps_min));
-          const icon = dayData.icons[0]; // Use the first icon recorded for the day
-          const description = dayData.descriptions[0]; // Use the first description
+          var temp_max = Math.round(
+            Math.max.apply(Math, _toConsumableArray(dayData.temps_max))
+          );
+          var temp_min = Math.round(
+            Math.min.apply(Math, _toConsumableArray(dayData.temps_min))
+          );
+          var icon = dayData.icons[0]; // Use the first icon recorded for the day
+          var description = dayData.descriptions[0]; // Use the first description
 
-          dailyForecastEl.innerHTML += `
-                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2 forecast-card">
-                        <div class="bg-white rounded-lg shadow-md h-full flex flex-col justify-between items-center text-center p-4">
-                            <h6 class="text-lg font-semibold text-gray-800">${dateString}</h6>
-                            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="weather-icon w-20 h-20" alt="${description}" onerror="this.onerror=null; this.src='https://placehold.co/80x80/FFFFFF/C0C0C0?text=Icon';">
-                            <p class="text-2xl font-bold text-gray-900 mb-1">${temp_max}°/${temp_min}°C</p>
-                            <p class="text-gray-600 capitalize">${description}</p>
-                        </div>
-                    </div>`;
+          dailyForecastEl.innerHTML +=
+            '\n                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2 forecast-card">\n                        <div class="bg-white rounded-lg shadow-md h-full flex flex-col justify-between items-center text-center p-4">\n                            <h6 class="text-lg font-semibold text-gray-800">'
+              .concat(
+                dateString,
+                '</h6>\n                            <img src="https://openweathermap.org/img/wn/'
+              )
+              .concat(icon, '@2x.png" class="weather-icon w-20 h-20" alt="')
+              .concat(
+                description,
+                '" onerror="this.onerror=null; this.src=\'https://placehold.co/80x80/FFFFFF/C0C0C0?text=Icon\';">\n                            <p class="text-2xl font-bold text-gray-900 mb-1">'
+              )
+              .concat(temp_max, "\xB0/")
+              .concat(
+                temp_min,
+                '\xB0C</p>\n                            <p class="text-gray-600 capitalize">'
+              )
+              .concat(
+                description,
+                "</p>\n                        </div>\n                    </div>"
+              );
           count++;
           uniqueDates.add(dateString); // Mark this date as displayed
         }
@@ -958,15 +1816,16 @@
       currentMarker = L.marker([lat, lon])
         .addTo(map)
         .bindPopup(
-          `<b>${locationName}</b><br>Lat: ${lat.toFixed(
-            2
-          )}, Lon: ${lon.toFixed(2)}`
+          "<b>"
+            .concat(locationName, "</b><br>Lat: ")
+            .concat(lat.toFixed(2), ", Lon: ")
+            .concat(lon.toFixed(2))
         )
         .openPopup(); // Open the popup immediately
     }
 
     function getWindDirection(deg) {
-      const directions = [
+      var directions = [
         "Utara",
         "Timur Laut",
         "Timur",
@@ -977,58 +1836,20 @@
         "Barat Laut",
       ];
       // Calculate index based on 360 degrees divided into 8 segments (45 degrees each)
-      const index = Math.round((deg % 360) / 45);
+      var index = Math.round((deg % 360) / 45);
       return directions[index % 8]; // Modulo 8 ensures index stays within array bounds
     }
 
     // Event listener for the search form submission
-    searchForm.addEventListener("submit", (e) => {
+    searchForm.addEventListener("click", function (e) {
       e.preventDefault(); // Prevent the default form submission behavior
-      const city = searchInput.value.trim(); // Get and trim the city name from input
+      var city = searchInput.value.trim(); // Get and trim the city name from input
       if (city) {
         fetchAllWeatherData(city, "city"); // Fetch weather for the entered city
       } else {
         showCustomError("Mohon masukkan nama kota untuk mencari cuaca."); // Show error if input is empty
       }
     });
-
-    // Function to get user's current location using the browser's Geolocation API
-    function getLocation() {
-      if (navigator.geolocation) {
-        // Check if Geolocation API is available
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            // Success callback: get coordinates and fetch weather
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            fetchAllWeatherData(`${lat},${lon}`, "coords"); // Fetch weather using coordinates
-          },
-          (error) => {
-            // Error callback: handle different geolocation errors
-            console.error("Geolocation error:", error);
-            let errMsg =
-              "Gagal mendapatkan lokasi Anda. Izinkan akses lokasi atau cari kota secara manual.";
-            if (error.code === error.PERMISSION_DENIED)
-              errMsg =
-                "Akses lokasi ditolak. Izinkan akses lokasi atau cari kota secara manual.";
-            else if (error.code === error.POSITION_UNAVAILABLE)
-              errMsg = "Informasi lokasi tidak tersedia.";
-            else if (error.code === error.TIMEOUT)
-              errMsg = "Waktu habis saat mencoba mendapatkan lokasi.";
-            showCustomError(errMsg);
-            console.log("Geolocation failed, falling back to Jakarta.");
-            fetchAllWeatherData("Jakarta", "city"); // Fallback to a default city (Jakarta)
-          }
-        );
-      } else {
-        // Geolocation API not supported by the browser
-        showCustomError(
-          "Geolocation tidak didukung oleh browser ini. Silakan cari kota secara manual."
-        );
-        console.log("Geolocation not supported, falling back to Jakarta.");
-        fetchAllWeatherData("Jakarta", "city"); // Fallback to a default city (Jakarta)
-      }
-    }
 
     initializeLeafletMap();
   </script>
